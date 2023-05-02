@@ -1,0 +1,58 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Edit Movies{% endblock %}
+
+{% block content %}
+<div class="content">
+
+<a href="{{ url_for('home') }}">Home</a>
+<h1 class="heading">Movie Name: {{ movie.title }}</h1>
+<p class="p_text">Editamos el rating y el ranking</p>
+<div class="data_edit_movies">
+    <form method="POST" action="{{ url_for('edit', id=movie.id) }}" >
+            <div class="add_movie">
+                  {{ form.rating.label }}<br>
+                  {{ form.rating() }}
+                  {{ form.csrf_token }}
+                  {% if form.errors %}
+                        <div class="alert alert-danger">
+                  {{ form.errors }}
+                        </div>
+                  {% endif %}
+            </div>
+
+            <div class="add_movie">
+                {{ form.ranking.label }}<br>
+                {{ form.ranking() }}
+                {{ form.csrf_token }}
+                {% if form.errors %}
+                        <div class="alert alert-danger">
+                {{ form.errors }}
+                        </div>
+                {% endif %}
+            </div>
+
+            <div class="add_movie">
+                        {{ form.review.label }}<br>
+                        {{ form.review() }}
+                        {{ form.csrf_token }}
+                        {% if form.errors %}
+                                <div class="alert alert-danger">
+                        {{ form.errors }}
+                                </div>
+                        {% endif %}
+            </div><br>
+
+        <p class="add_movie css" id="button">{{ form.submit(value="Enviar", class="btn") }}</p>
+    </form>
+</div>
+</div>
+{% endblock %}

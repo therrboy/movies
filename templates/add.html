@@ -1,0 +1,33 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Add Movie{% endblock %}
+
+{% block content %}
+<div class="content">
+
+<a href="{{ url_for('home') }}">Home</a>
+<h1 class="heading">Agrega una pelicula</h1>
+
+    <form method="POST" action="{{ url_for('select') }}" >
+
+        <div class="add_movie">
+                  {{ form.title.label }}<br>
+                  {{ form.title() }}
+                  {{ form.csrf_token }}
+                  {% for error in form.title.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                  {% endfor %}
+        </div><br>
+
+        <p class="add_movie css" id="button">{{ form.submit(value="Enviar", class="btn") }}</p>
+    </form>
+</div>
+{% endblock %}
